@@ -11,6 +11,21 @@ def validate_video(path):
     
     return video
 
+def read_frame(path_to_device):
+    video = validate_video(path_to_device)
+
+    while True:
+        has_frame, frame = video.read()
+
+        if not has_frame:
+            break
+
+        frame = cv2.flip(frame, 1)
+
+        yield frame
+
+    video.release()
+
 def open_camera(path_to_device):
 
     video = validate_video(path_to_device)
@@ -27,7 +42,7 @@ def open_camera(path_to_device):
         frame = cv2.flip(frame, 1)
 
         cv2.imshow(win_name, frame)
-        key = cv2.waitKey(0)
+        key = cv2.waitKey(1)
 
         if key == ord("Q") or key == ord("q") or key == 27:
             break
