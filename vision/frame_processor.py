@@ -10,4 +10,4 @@ def stream_body_landmarks(path):
         if body is None:
             continue
 
-    yield body
+        yield frame, body

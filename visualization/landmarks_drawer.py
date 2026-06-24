@@ -1,7 +1,7 @@
 import cv2
 
-LINE_COLOR = "#fcba03"
-POINT_COLOR = "#5203fc"
+LINE_COLOR = (3, 186, 252)
+POINT_COLOR = (252, 3, 82)
 
 def draw_landmarks(frame, body):
     # Left arm

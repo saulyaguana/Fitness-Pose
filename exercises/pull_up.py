@@ -6,7 +6,7 @@ class PullUp(BaseExercise):
         self.counter = 0
         self.is_up = False
         self.metrics = {}
-        self.initial_nose_y
+        self.initial_nose_y = None
 
     def get_metrics(self, body):
         left_elbow_angle = joint_angle(

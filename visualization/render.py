@@ -15,7 +15,7 @@ def render(frame, body, exercise):
 
     frame = draw_counter(
         frame,
-        exercise.get_repetitions
+        exercise.get_repetitions()
     )
 
     return frame

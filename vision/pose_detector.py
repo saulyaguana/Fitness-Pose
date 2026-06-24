@@ -1,4 +1,3 @@
-from vision.camera import read_frame
 from core.landmarks import Point, BodyLandmarks
 import cv2
 import numpy as np
