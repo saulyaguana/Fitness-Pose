@@ -1,0 +1,96 @@
+from exercises.base_exercise import BaseExercise
+from core.metrics import joint_angle
+
+class PullUp(BaseExercise):
+    def __init__(self):
+        self.counter = 0
+        self.is_up = False
+        self.metrics = {}
+        self.initial_nose_y
+
+    def get_metrics(self, body):
+        left_elbow_angle = joint_angle(
+            body.left_shoulder,
+            body.left_elbow,
+            body.left_wrist
+        )
+
+        right_elbow_angle = joint_angle(
+            body.right_shoulder,
+            body.right_elbow,
+            body.right_wrist
+        )
+
+        left_shoulder_angle = joint_angle(
+            body.left_elbow,
+            body.left_shoulder,
+            body.right_shoulder
+        )
+
+        right_shoulder_angle = joint_angle(
+            body.right_elbow,
+            body.right_shoulder,
+            body.left_shoulder
+        )
+
+        self.metrics = {
+            "left_elbow_angle": left_elbow_angle,
+            "right_elbow_angle": right_elbow_angle,
+            "left_shoulder_angle": left_shoulder_angle,
+            "right_shoulder_angle": right_shoulder_angle,
+        }
+
+        return self.metrics
+    
+    def process(self, body):
+
+        if self.initial_nose_y == None:
+            self.initial_nose_y = body.nose.y
+
+        metrics = self.get_metrics(body)
+
+        left_elbow_angle = metrics["left_elbow_angle"]
+        right_elbow_angle = metrics["right_elbow_angle"]
+
+        left_shoulder_angle = metrics["left_shoulder_angle"]
+        right_shoulder_angle = metrics["right_shoulder_angle"]
+
+        UP_ANGLE_MIN = 7
+        UP_ANGLE_MAX = 25
+
+        SHOULDER_ANGLE_MIN = 128
+        SHOULDER_ANGLE_MAX = 145
+
+        is_up_position = (
+
+            left_elbow_angle >= UP_ANGLE_MIN and
+            left_elbow_angle <= UP_ANGLE_MAX and
+
+            right_elbow_angle >= UP_ANGLE_MIN and
+            right_elbow_angle <= UP_ANGLE_MAX and
+
+            left_shoulder_angle >= SHOULDER_ANGLE_MIN and
+            left_shoulder_angle <= SHOULDER_ANGLE_MAX and
+
+            right_shoulder_angle >= SHOULDER_ANGLE_MIN and
+            right_shoulder_angle <= SHOULDER_ANGLE_MAX and
+
+            body.nose.y <= self.initial_nose_y + 60
+
+        )
+
+        DOWN_ANGLE_THRESHOLD = 160
+
+        is_down_position = (
+            left_elbow_angle >= DOWN_ANGLE_THRESHOLD and
+            right_elbow_angle >=DOWN_ANGLE_THRESHOLD
+        )
+
+        if is_up_position:
+            self.is_up = True
+        elif is_down_position and self.is_up:
+            self.counter += 1
+            self.is_up = False
+
+    def get_repetitions(self):
+        return self.counter

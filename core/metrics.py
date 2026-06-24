@@ -1,5 +1,4 @@
 from core.geometry import compute_angle
-from vision.frame_processor import stream_body_landmarks
 import numpy as np
 
 def joint_angle(point_a, point_b, point_c):
