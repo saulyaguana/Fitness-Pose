@@ -1,1 +1,2 @@
-"../video_samples/squats.mp4"
+(frame is None)
+        print(fr

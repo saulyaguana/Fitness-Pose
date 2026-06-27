@@ -12,3 +12,7 @@ class BaseExercise(ABC):
     @abstractmethod
     def get_repetitions(self):
         pass
+
+    @abstractmethod
+    def get_draw_config(self, body):
+        pass

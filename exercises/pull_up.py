@@ -8,6 +8,37 @@ class PullUp(BaseExercise):
         self.metrics = {}
         self.initial_nose_y = None
 
+    def get_draw_config(self, body):
+        return {
+            "points": [
+                body.left_shoulder,
+                body.left_elbow,
+                body.left_wrist,
+
+                body.right_shoulder,
+                body.right_elbow,
+                body.right_wrist,
+
+                body.nose
+            ],
+            "connections": [
+                (body.left_shoulder, body.left_elbow),
+                (body.left_elbow, body.left_wrist),
+                
+                (body.right_shoulder, body.right_elbow),
+                (body.right_elbow, body.right_wrist),
+
+                (body.left_shoulder, body.right_shoulder)
+            ],
+            "angles": [
+                (body.left_elbow, self.metrics["left_elbow_angle"]),
+                (body.right_elbow, self.metrics["right_elbow_angle"]),
+                
+                (body.left_shoulder, self.metrics["left_shoulder_angle"]),
+                (body.right_shoulder, self.metrics["right_shoulder_angle"])
+            ]
+        }
+
     def get_metrics(self, body):
         left_elbow_angle = joint_angle(
             body.left_shoulder,
