@@ -12,3 +12,14 @@ def joint_angle(point_a, point_b, point_c):
     angle = compute_angle(vector_ba, vector_bc)
 
     return angle
+
+def calculate_rom(min_angle, max_angle):
+    return max_angle - min_angle
+
+def calculate_rep_time(start_time, end_time):
+    return end_time - start_time
+
+def calculate_cadence(repetitions, elapsed_time):
+    if elapsed_time == 0:
+        return 0
+    return repetitions / elapsed_time

@@ -16,3 +16,7 @@ class BaseExercise(ABC):
     @abstractmethod
     def get_draw_config(self, body):
         pass
+
+    @abstractmethod
+    def get_summary(self):
+        pass

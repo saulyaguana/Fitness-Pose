@@ -23,5 +23,12 @@ def main():
             break
     cv2.destroyAllWindows()
 
+    summary = exercise.get_summary()
+
+    print("\n===== SESSION SUMMARY =====")
+
+    for key, value in summary.items():
+        print(f"{key}: {value}")
+
 if __name__ == "__main__":
     main()
